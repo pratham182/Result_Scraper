@@ -5,24 +5,31 @@ export const createSubject=async(response:any)=>{
     try{
         
         response.map(async(ele:any,index:number)=>{
-            console.log(ele.internalMaxMarks);
             const result = await prisma.subject.findFirst({
                 where: {
-                  subjectCode:ele.subject_Id
+                  subjectCode:ele.subjectId
                 }
               });
+              console.log(ele.internalMaxMarks)
               if(!result){
+                let internal_max:string;
+                (ele.internalMaxMarks==''?internal_max="0":internal_max=ele.internalMaxMarks)
 
-             await prisma.subject.create({
+             const subject=await prisma.subject.create({
                 data:{
                     subjectCode:ele.subjectId,
                     subjectName:ele.subjectName,
                     maxMarks:parseInt(ele.maxMarks),
-                    internalMax:parseInt(ele.internalMaxMarks),
+                    internalMax:parseInt(internal_max),
                     credit:parseFloat(ele.credits)
     
-                }});
-                console.log("Subject created");
+                }});      
+
+
+
+            
+                console.log(subject);
+                
             }
         })
         

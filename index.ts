@@ -1,6 +1,8 @@
 import { createBranch } from './src/database/create-branch';
+import { createMarks } from './src/database/create-marks';
 import { createStudent } from './src/database/create-student';
 import { createSubject } from './src/database/create-subject';
+import { dummyStudent } from './src/database/dummy-student';
 import { fetch_result } from './src/fetch-result';
 
 import dotenv from 'dotenv'; 
@@ -29,9 +31,13 @@ export const main = async () => {
     if (response) {
     //  console.log(response);
       // overall_result.push(response);
-      createBranch(response.branchName);
-      createStudent(response);
-      createSubject(response.marksDetails);
+      await createBranch(response.branchName);
+      await createStudent(response);
+
+    
+      await createSubject(response.marksDetails);
+       await createMarks(response);
+     
     }iterate_rollno++;
     
     

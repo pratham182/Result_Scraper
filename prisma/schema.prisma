@@ -41,9 +41,9 @@ model Subject {
 
 model Mark {
   id               Int    @id @default(autoincrement())
-  marksObtained    Int
+  marksObtained    String
   gradePoint       Float
-  internalObtained Int
+  internalObtained String
   studentId        BigInt
   subjectId        String
 
